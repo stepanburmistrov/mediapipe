@@ -6,7 +6,7 @@ mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2)
 
-insert_image = cv2.imread('image.jpg')
+insert_image = cv2.imread("image.jpg")
 
 h, w = insert_image.shape[:2]
 src_points = np.array([
@@ -67,7 +67,11 @@ while True:
                 matrix = cv2.getPerspectiveTransform(src_points, dst_points)
 
 
-                warped_insert = cv2.warpPerspective(insert_image, matrix, (frame.shape[1], frame.shape[0]))
+                warped_insert = cv2.warpPerspective(insert_image,
+                                                    matrix,
+                                                    (frame.shape[1],
+                                                     frame.shape[0]))
+                
                 cv2.imwrite("warped.jpg", warped_insert)
                 mask = np.zeros_like(frame)
                 cv2.fillPoly(mask, [np.int32(dst_points)], (255, 255, 255))
